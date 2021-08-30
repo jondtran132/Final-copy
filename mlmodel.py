@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-import tensorflow
+
 
 
 df = pd.read_csv('Data/Clean_Real_Estate_With_Crime.csv')
