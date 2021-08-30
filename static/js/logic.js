@@ -76,8 +76,8 @@ function getData() {
         }
       }
       console.log(valString)
-      console.log("http://127.0.0.1:5000/estimate/" + valString);
-      d3.json("http://127.0.0.1:5000/estimate/" + valString).then(function (a) {
+      console.log("http://optimus-realty.herokuapp.com//estimate/" + valString);
+      d3.json("http://optimus-realty.herokuapp.com//estimate/" + valString).then(function (a) {
         console.log(a);
         d3.select("#estimate").html(`$${a.toLocaleString()}`);
       }).catch(function (a) { console.log(a); });
@@ -89,8 +89,8 @@ function getData() {
 
 
 // Use local flask API to get Medal and country data
-var local_flask = "http://127.0.0.1:5000/crimes";
-var local_flask2 = "http://127.0.0.1:5000/houses";
+var local_flask = "http://optimus-realty.herokuapp.com//crimes";
+var local_flask2 = "http://optimus-realty.herokuapp.com//houses";
 
 
 
