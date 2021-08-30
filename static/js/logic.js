@@ -76,8 +76,8 @@ function getData() {
         }
       }
       console.log(valString)
-      console.log("http://optimus-realty.herokuapp.com//estimate/" + valString);
-      d3.json("http://optimus-realty.herokuapp.com//estimate/" + valString).then(function (a) {
+      console.log("https://optimus-realty.herokuapp.com//estimate/" + valString);
+      d3.json("https://optimus-realty.herokuapp.com//estimate/" + valString).then(function (a) {
         console.log(a);
         d3.select("#estimate").html(`$${a.toLocaleString()}`);
       }).catch(function (a) { console.log(a); });
@@ -89,8 +89,8 @@ function getData() {
 
 
 // Use local flask API to get Medal and country data
-var local_flask = "http://optimus-realty.herokuapp.com//crimes";
-var local_flask2 = "http://optimus-realty.herokuapp.com//houses";
+var local_flask = "https://optimus-realty.herokuapp.com//crimes";
+var local_flask2 = "https://optimus-realty.herokuapp.com//houses";
 
 
 
