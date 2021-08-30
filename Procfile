@@ -1,1 +1,1 @@
-web: gunicorn optimus.app:app
+web: gunicorn app:app
