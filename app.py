@@ -3,7 +3,7 @@ import json
 import pandas as pd
 import numpy as np
 from sqlalchemy import create_engine, func
-from ./mlmodel import mlmodel
+from Final-copy.mlmodel import mlmodel
 from config import PASSWORD
 
 engine = create_engine(f"postgresql://root:{PASSWORD}@mypostgresdb.c57smewha8wr.us-west-1.rds.amazonaws.com:5432/finalproject")
