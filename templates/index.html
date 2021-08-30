@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Optimus Real Estate</title>
+    <link rel="icon" type="image/x-icon" href="static/assets/transformers_autobots.png" />
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.3/dist/leaflet.css"
+        integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
+        crossorigin="" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="../static/css/styles.css" rel="stylesheet" />
+    <!-- Marker Cluster CSS -->
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet.markercluster@1.0.3/dist/MarkerCluster.css">
+    <link rel="stylesheet" type="text/css"
+        href="https://unpkg.com/leaflet.markercluster@1.0.3/dist/MarkerCluster.Default.css">
+    <!--Chart.js  https://www.chartjs.org/docs/latest/-->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!--tabular-->
+    <link href="https://unpkg.com/tabulator-tables@4.9.3/dist/css/tabulator.min.css" rel="stylesheet">
+    <script type="text/javascript" src="https://unpkg.com/tabulator-tables@4.9.3/dist/js/tabulator.min.js"></script>
+</head>
+
+<body id="page-top">
+    <!-- Navigation-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+        <div class="container px-4">
+            <a class="navbar-brand" href="#page-top">Back to Top</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span
+                    class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#input">Input</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#chart">Chart</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#mapData">Map</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- Header-->
+    <header class="bg-primary bg-gradient text-white">
+        <img src="../static/assets/transformers_autobots2.png" alt="Autobots2 Pic" class="rounded mx-auto d-block">
+        <div class="container px-4 text-center">
+            <h1 class="fw-bolder">Welcome to Optimus Real Estate</h1>
+
+            <a class="btn btn-lg btn-light" href="#input">Fair Market Pricing Analyzer is a click away!</a>
+        </div>
+    </header>
+    <!-- input section-->
+    <section id="input">
+        <div class="container px-4 text-center">
+            <div class="row gx-4 justify-content-center">
+                <div class="col-lg-10">
+                    <h2>Input Section</h2>
+                    <p class="lead">Please tell us a few things about your home</p>
+                    <!-- Input Card Groups-->
+                    <div class="card-group">
+                        <!-- First Card Drop Down-->
+                        <div class="card
+                        
+                        ">
+                            <img src="../static/assets/futurecity2.jpg" class="card-img-top" alt="futurecity2">
+                            <div class="card-body">
+                                <h5 class="card-title">Pick County and Zip</h5>
+                                <br>
+                                <div class="dropdown">
+                                    <h6>County:</h6>
+                                    <select id="county" onchange="optionChanged(this.value)">
+                                        <!-- change this if we are going to enter more counties from a DF -->
+                                        <option value="1">Orange County</option>
+                                        <option value="2">Los Angeles County</option>
+                                        <option value="3">Ventura County</option>
+                                    </select>
+                                </div>
+                                <!--Drop down for zip codes-->
+                                <div class="dropdown" style="margin-top:20px;">
+                                    <h6>City:</h6>
+                                    <select id="city">
+                                        <option value='Aliso Viejo'>Aliso Viejo</option>
+                                        <option value='Anaheim'>Anaheim</option>
+                                        <option value='Brea'>Brea</option>
+                                        <option value='Buena Park'>Buena Park</option>
+                                        <option value='Costa Mesa'>Costa Mesa</option>
+                                        <option value='Cypress'>Cypress</option>
+                                        <option value='Dana Point'>Dana Point</option>
+                                        <option value='Fountain Valley'>Fountain Valley</option>
+                                        <option value='Fullerton'>Fullerton</option>
+                                        <option value='Garden Grove'>Garden Grove</option>
+                                        <option value='Huntington Beach'>Huntington Beach</option>
+                                        <option value='Irvine'>Irvine</option>
+                                        <option value='La Habra'>La Habra</option>
+                                        <option value='La Palma'>La Palma</option>
+                                        <option value='Laguna Beach'>Laguna Beach</option>
+                                        <option value='Laguna Hills'>Laguna Hills</option>
+                                        <option value='Laguna Niguel'>Laguna Niguel</option>
+                                        <option value='Lake Forest'>Lake Forest</option>
+                                        <option value='Los Alamitos'>Los Alamitos</option>
+                                        <option value='Mission Viejo'>Mission Viejo</option>
+                                        <option value='Newport Beach'>Newport Beach</option>
+                                        <option value='Orange'>Orange</option>
+                                        <option value='Placentia'>Placentia</option>
+                                        <option value='Rancho Santa Margarita'>Rancho Santa Margarita</option>
+                                        <option value='San Clemente'>San Clemente</option>
+                                        <option value='San Juan Capistrano'>San Juan Capistrano</option>
+                                        <option value='Santa Ana'>Santa Ana</option>
+                                        <option value='Seal Beach'>Seal Beach</option>
+                                        <option value='Stanton'>Stanton</option>
+                                        <option value='Tustin'>Tustin</option>
+                                        <option value='Villa Park'>Villa Park</option>
+                                        <option value='Westminster'>Westminster</option>
+                                        <option value='Yorba Linda'>Yorba Linda</option>
+                                    </select>
+                                </div>
+
+                                <div class="dropdown" style="margin-top:20px;">
+                                    <h6>Zip Code:</h6>
+                                    <select id="zip">
+                                        <option value='90620'>90620</option>
+                                        <option value='90621'>90621</option>
+                                        <option value='90623'>90623</option>
+                                        <option value='90630'>90630</option>
+                                        <option value='90631'>90631</option>
+                                        <option value='90680'>90680</option>
+                                        <option value='90720'>90720</option>
+                                        <option value='90740'>90740</option>
+                                        <option value='92602'>92602</option>
+                                        <option value='92603'>92603</option>
+                                        <option value='92604'>92604</option>
+                                        <option value='92606'>92606</option>
+                                        <option value='92610'>92610</option>
+                                        <option value='92612'>92612</option>
+                                        <option value='92614'>92614</option>
+                                        <option value='92618'>92618</option>
+                                        <option value='92620'>92620</option>
+                                        <option value='92624'>92624</option>
+                                        <option value='92626'>92626</option>
+                                        <option value='92627'>92627</option>
+                                        <option value='92629'>92629</option>
+                                        <option value='92630'>92630</option>
+                                        <option value='92646'>92646</option>
+                                        <option value='92647'>92647</option>
+                                        <option value='92648'>92648</option>
+                                        <option value='92649'>92649</option>
+                                        <option value='92651'>92651</option>
+                                        <option value='92653'>92653</option>
+                                        <option value='92656'>92656</option>
+                                        <option value='92660'>92660</option>
+                                        <option value='92661'>92661</option>
+                                        <option value='92663'>92663</option>
+                                        <option value='92672'>92672</option>
+                                        <option value='92673'>92673</option>
+                                        <option value='92675'>92675</option>
+                                        <option value='92677'>92677</option>
+                                        <option value='92679'>92679</option>
+                                        <option value='92683'>92683</option>
+                                        <option value='92688'>92688</option>
+                                        <option value='92691'>92691</option>
+                                        <option value='92692'>92692</option>
+                                        <option value='92701'>92701</option>
+                                        <option value='92703'>92703</option>
+                                        <option value='92704'>92704</option>
+                                        <option value='92705'>92705</option>
+                                        <option value='92706'>92706</option>
+                                        <option value='92707'>92707</option>
+                                        <option value='92708'>92708</option>
+                                        <option value='92780'>92780</option>
+                                        <option value='92782'>92782</option>
+                                        <option value='92801'>92801</option>
+                                        <option value='92802'>92802</option>
+                                        <option value='92804'>92804</option>
+                                        <option value='92805'>92805</option>
+                                        <option value='92806'>92806</option>
+                                        <option value='92807'>92807</option>
+                                        <option value='92821'>92821</option>
+                                        <option value='92823'>92823</option>
+                                        <option value='92831'>92831</option>
+                                        <option value='92832'>92832</option>
+                                        <option value='92833'>92833</option>
+                                        <option value='92835'>92835</option>
+                                        <option value='92840'>92840</option>
+                                        <option value='92841'>92841</option>
+                                        <option value='92843'>92843</option>
+                                        <option value='92844'>92844</option>
+                                        <option value='92845'>92845</option>
+                                        <option value='92861'>92861</option>
+                                        <option value='92865'>92865</option>
+                                        <option value='92866'>92866</option>
+                                        <option value='92867'>92867</option>
+                                        <option value='92868'>92868</option>
+                                        <option value='92869'>92869</option>
+                                        <option value='92870'>92870</option>
+                                        <option value='92886'>92886</option>
+                                        <option value='92887'>92887</option>
+                                    </select>
+                                </div>
+
+                                <div class="dropdown" style="margin-top:20px;">
+                                    <h6>Average School Rating:</h6>
+                                    <select id="school-rating">
+                                        <option value='2.333'>2.333</option>
+                                        <option value='2.667'>2.667</option>
+                                        <option value='3.0'>3.0</option>
+                                        <option value='3.333'>3.333</option>
+                                        <option value='3.667'>3.667</option>
+                                        <option value='4.0'>4.0</option>
+                                        <option value='4.333'>4.333</option>
+                                        <option value='4.4'>4.4</option>
+                                        <option value='4.429'>4.429</option>
+                                        <option value='4.6'>4.6</option>
+                                        <option value='4.667'>4.667</option>
+                                        <option value='4.75'>4.75</option>
+                                        <option value='4.833'>4.833</option>
+                                        <option value='5.0'>5.0</option>
+                                        <option value='5.25'>5.25</option>
+                                        <option value='5.333'>5.333</option>
+                                        <option value='5.5'>5.5</option>
+                                        <option value='5.667'>5.667</option>
+                                        <option value='5.75'>5.75</option>
+                                        <option value='6.0'>6.0</option>
+                                        <option value='6.25'>6.25</option>
+                                        <option value='6.333'>6.333</option>
+                                        <option value='6.5'>6.5</option>
+                                        <option value='6.667'>6.667</option>
+                                        <option value='6.75'>6.75</option>
+                                        <option value='7.0'>7.0</option>
+                                        <option value='7.25'>7.25</option>
+                                        <option value='7.333'>7.333</option>
+                                        <option value='7.667'>7.667</option>
+                                        <option value='7.75'>7.75</option>
+                                        <option value='8.0'>8.0</option>
+                                        <option value='8.2'>8.2</option>
+                                        <option value='8.25'>8.25</option>
+                                        <option value='8.333'>8.333</option>
+                                        <option value='8.5'>8.5</option>
+                                        <option value='8.667'>8.667</option>
+                                        <option value='8.75'>8.75</option>
+                                        <option value='9.0'>9.0</option>
+                                        <option value='9.333'>9.333</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Second Card Form Input-->
+                        <div class="card">
+                            <img src="../static/assets/futurecity3.jpg" class="card-img-top" alt="futurecity3">
+                            <div class="card-body">
+                                <h5 class="card-title">Input Home Information</h5>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="mb-3">
+                                            <label for="exampleFormControlInput1" class="form-label">Bedrooms</label>
+                                            <input type="bedroom" class="form-control" id="beds" placeholder="4">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="exampleFormControlInput1" class="form-label">Baths</label>
+                                            <input type="bath" class="form-control" id="baths" placeholder="2.5">
+                                        </div>
+
+
+                                    </div>
+
+
+                                    <div class="col-sm-6">
+                                        <div class="mb-3">
+                                            <label for="exampleFormControlInput1" class="form-label">Year Built</label>
+                                            <input type="Year Built" class="form-control" id="year-built"
+                                                placeholder="2000">
+                                        </div>
+
+
+                                        <div class="mb-3">
+                                            <label for="exampleFormControlInput1" class="form-label">Square Feet</label>
+                                            <input type="sq. ft" class="form-control" id="sqft" placeholder="1400">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="mb-3">
+                                            <label for="exampleFormControlInput1" class="form-label">Lot Size</label>
+                                            <input type="Year Built" class="form-control" id="lot-size"
+                                                placeholder="2000">
+                                        </div>
+
+
+                                        <div class="mb-3">
+                                            <label for="exampleFormControlInput1" class="form-label">Days on
+                                                Market</label>
+                                            <input type="sq. ft" class="form-control" id="days-on-market"
+                                                placeholder="10">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-6">
+                                        <div class="mb-3">
+                                            <label for="exampleFormControlInput1" class="form-label">Latitude</label>
+                                            <input type="Year Built" class="form-control" id="lat"
+                                                placeholder="33.7175">
+                                        </div>
+
+
+                                        <div class="mb-3">
+                                            <label for="exampleFormControlInput1" class="form-label">Longitude</label>
+                                            <input type="sq. ft" class="form-control" id="lng" placeholder="-117.8311">
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Third Card Form Output-->
+                        <div class="card">
+                            <img src="../static/assets/futurecity1.jpg" class="card-img-top" alt="futurecity1">
+                            <div class="card-body">
+                                <h5 class="card-title">Our Estimates Show</h5>
+                                <h4 id="estimate">
+                                    <div class="alert alert-success" role="alert">
+                                        <h4 class="alert-heading">Warning!</h4>
+                                        <p>Please consult your local real estate agent before listing home, not
+                                            financial advice</p>
+
+                                    </div>
+                                </h4>
+                                <div class="mb-3">
+                                    <!-- <label for="exampleFormControlInput1" class="form-label">Address</label>
+                                    <input type="Address" class="form-control" id="address"
+                                        placeholder="Enter Address"> -->
+                                    <a class="btn btn-primary" id="submit-input">Submit</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Services section-->
+    <section class="bg-light" id="chart">
+        <div class="container px-4 text-center">
+            <div class="row gx-4 justify-content-center">
+                <div class="col-lg-10">
+                    <h2> Historical Data</h2>
+                    <div id="example-table"></div>
+                    <!-- <canvas id="myChart" width="900" height="400"></canvas> -->
+                    <a href="#input" class="btn btn-primary ">Re-input Data</a>
+                    <a href="#mapData" class="btn btn-primary ">Go Map</a>
+
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact section-->
+    <section id="mapData">
+        <div class="container px-4 text-center">
+            <div class="row gx-4 justify-content-center">
+                <div class="col-lg-10">
+                    <h2> Map Data </h2>
+                    <!-- Input Card Groups-->
+                    <div class="card-group">
+                        <div class="col-sm-8">
+                            <div id="myMap"></div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="card">
+                                <div class="card ">
+                                    <div class="card-body ">
+                                        <div class="row justify-content-center">
+                                            <!-- where gauge1 is inserted -->
+                                            <div id="gauge1"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="row justify-content-center">
+                                            <!-- where gauge1 is inserted -->
+                                            <div id="gauge2"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </section>
+
+
+    <!-- Footer-->
+    <footer class="py-5 bg-dark">
+        <div class="container px-4">
+            <p class="m-0 text-center text-white">Copyright &copy; Adam Stabell, Gary Castillo, Jonathan Tran, Andrew
+                Martinez, Joaquin Alvardo</p>
+        </div>
+    </footer>
+    <!--D3 cdn-->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <!-- Config JS-->
+    <script src="../static/js/config.js"></script>
+    <!--D3 cdn-->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.3.3/dist/leaflet.js"
+        integrity="sha512-tAGcCfR4Sc5ZP5ZoVz0quoZDYX5aCtEm/eu1KhSLj2c9eFrylXZknQYmxUssFaVJKvvc0dJQixhGjG2yXWiV9Q=="
+        crossorigin=""></script>
+    <!-- Map JavaScript -->
+    <!-- <script type="text/javascript" src="../static/js/circle_maps.js"></script> -->
+    <!--Ploty-->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <!-- Marker Cluster JS -->
+    <script type="text/javascript"
+        src="https://unpkg.com/leaflet.markercluster@1.0.3/dist/leaflet.markercluster.js"></script>
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS-->
+    <script src="../static/js/logic.js"></script>
+    <!-- <script src="js/logic.js"></script> -->
+    <!-- Core theme JS: These are incase we dont want to use the circles-->
+    <script src="../static/js/scripts.js"></script>
+
+</body>
+
+</html>
